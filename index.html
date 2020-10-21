@@ -1,0 +1,82 @@
+<html>
+    <head>
+        <title>ISS API</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <style>
+            body{
+                background-image: url('../assets/space_background2.jpg');
+                background-size: cover;
+                color: white;
+                text-align: center;
+                margin: auto;
+            }
+
+            .container{
+                position: absolute;
+                bottom: 20px;
+                font-size: x-large;
+            }
+
+            .coordinates{
+                display: inline-block;
+                margin: 2rem;
+            }
+
+            @keyframes scroll {
+                from {left: 0px;}
+                to{left: 1000px;}
+            }
+
+            img{
+                width: 20rem;
+                animation: scroll 20s infinite;
+                position: absolute;
+                left: 0px;
+                margin-top: 5rem;
+            }
+            h1{
+                text-shadow: 2px 2px yellow;
+                font-size: xxx-large;
+}
+            }
+        </style>
+    </head>
+    <body>
+        <h1>International Space Station</h1>
+        <img src='https://i0.wp.com/freepngimages.com/wp-content/uploads/2015/12/international-space-station-transparent-background.png?fit=817%2C325' />
+        <div class='container'>
+            <div class='coordinates'>
+                <h4>Latitude:</h4>
+                <p id='latitude'></p> 
+            </div>
+            <div class='coordinates'>
+                <h4>Longitude</h4>
+                <p id='longitude'></p>
+            </div>
+        </div>
+
+        <script>
+            function sendRequest(){
+                $.ajax({
+                url: 'http://api.open-notify.org/iss-now.json',
+                success: getApi
+            })
+            }
+            
+
+            function getApi(response){
+                var latitude = response.iss_position.latitude;
+                var longitude = response.iss_position.latitude;
+                $('#latitude').text(latitude);
+                $('#longitude').text(longitude);
+            }
+
+            setInterval(sendRequest, 3000)
+
+           
+
+
+        </script>
+    </body>
+</html>
